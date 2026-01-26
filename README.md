@@ -25,7 +25,7 @@ SELECT
 FROM
 	green_tripdata gt
 WHERE 
-	(gt.lpep_pickup_datetime BETWEEN '2025-11-01' AND '2025-12-01') AND
+	(gt.lpep_pickup_datetime >= '2025-11-01' AND gt.lpep_pickup_datetime < '2025-12-01') AND
 	gt.trip_distance <= 1;
 
 ## Question 4 - Query
@@ -70,7 +70,7 @@ LEFT JOIN
 LEFT JOIN
 	taxi_zone_lookup tzl_do ON gt.DOLocationID = tzl_do.LocationID 
 WHERE
-	(gt.lpep_pickup_datetime BETWEEN '2025-11-01' AND '2025-11-30') AND
+	(gt.lpep_pickup_datetime >= '2025-11-01' AND gt.lpep_pickup_datetime <= '2025-11-31') AND
 	tzl_pu."Zone" = "East Harlem North"
 ORDER BY
 	gt.tip_amount DESC
