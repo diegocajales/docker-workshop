@@ -1,9 +1,11 @@
-import os
-import requests
-import pandas as pd
+#!/usr/bin/env python
+# coding: utf-8
+
 import click
+import pandas as pd
 from sqlalchemy import create_engine
 from tqdm.auto import tqdm
+
 import pyarrow.dataset as ds
 
 dtype = {
@@ -27,67 +29,57 @@ dtype = {
 
 parse_dates = ["tpep_pickup_datetime", "tpep_dropoff_datetime"]
 
+
 @click.command()
-@click.option("--pg-user", default="root")
-@click.option("--pg-pass", default="root")
-@click.option("--pg-host", default="localhost")
-@click.option("--pg-port", default=5432, type=int)
-@click.option("--pg-db", default="ny_taxi")
-@click.option("--target-table", default="yellow_taxi_data")
-@click.option("--year", default=2025, type=int)
-@click.option("--month", default=11, type=int)
+@click.option("--pg-user", default="root", help="PostgreSQL user")
+@click.option("--pg-pass", default="root", help="PostgreSQL password")
+@click.option("--pg-host", default="localhost", help="PostgreSQL host")
+@click.option("--pg-port", default=5432, type=int, help="PostgreSQL port")
+@click.option("--pg-db", default="ny_taxi", help="PostgreSQL database name")
+@click.option("--target-table", default="yellow_taxi_data", help="Target table name")
+@click.option("--year", default=2025, type=int, help="Year of data to ingest")
+@click.option("--month", default=11, type=int, help="Month of data to ingest")
+
 def run(pg_user, pg_pass, pg_host, pg_port, pg_db, target_table, year, month):
     batch_rows = 100_000
-    prefix = "https://d37ci6vzurychx.cloudfront.net/trip-data/"
+
+    prefix = "https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/"
     url = f"{prefix}yellow_tripdata_{year}-{month:02d}.parquet"
-    local_filename = "temp_data.parquet"
 
-    # 1. Download the file once
-    print(f"Downloading {url}...")
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        with open(local_filename, "wb") as f:
-            f.write(response.content)
-        
-        # 2. Setup Database Connection
-        engine = create_engine(f"postgresql://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}")
+    engine = create_engine(f"postgresql://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}")
 
-        # 3. Initialize PyArrow Dataset from local file
-        dataset = ds.dataset(local_filename, format="parquet")
-        scanner = dataset.scan(batch_size=batch_rows)
+    # Stream parquet in record batches
+    dataset = ds.dataset(url, format="parquet")
+    scanner = dataset.scan(batch_size=batch_rows)
 
-        first = True
-        
-        # 4. Process and Ingest
-        for record_batch in tqdm(scanner.to_batches(), desc="Ingesting Data"):
-            df_chunk = record_batch.to_pandas()
+    first = True
+    for record_batch in tqdm(scanner.to_batches(), desc="Loading batches"):
+        df_chunk = record_batch.to_pandas()
 
-            for col in parse_dates:
-                if col in df_chunk.columns:
-                    df_chunk[col] = pd.to_datetime(df_chunk[col], errors="coerce")
+        # enforce dtypes + datetime
+        for col in parse_dates:
+            if col in df_chunk.columns:
+                df_chunk[col] = pd.to_datetime(df_chunk[col], errors="coerce")
 
-            df_chunk = df_chunk.astype({k: v for k, v in dtype.items() if k in df_chunk.columns})
+        df_chunk = df_chunk.astype({k: v for k, v in dtype.items() if k in df_chunk.columns})
 
-            if first:
-                df_chunk.head(0).to_sql(name=target_table, con=engine, if_exists="replace", index=False)
-                print(f"Table '{target_table}' created.")
-                first = False
-
-            df_chunk.to_sql(
-                name=target_table, 
-                con=engine, 
-                if_exists="append", 
-                index=False, 
-                method="multi", 
-                chunksize=10_000
+        if first:
+            df_chunk.head(0).to_sql(
+                name=target_table,
+                con=engine,
+                if_exists="replace",
+                index=False,
             )
+            first = False
 
-    finally:
-        # 5. Clean up the file even if the script crashes
-        if os.path.exists(local_filename):
-            os.remove(local_filename)
-            print("Cleaned up temporary file.")
+        df_chunk.to_sql(
+            name=target_table,
+            con=engine,
+            if_exists="append",
+            index=False,
+            method="multi",      
+            chunksize=10_000,   
+        )
 
 if __name__ == "__main__":
     run()
