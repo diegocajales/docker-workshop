@@ -4,9 +4,9 @@
 First we create the image
 
 docker run -it \               
-    --rm \
-    --entrypoint=bash \
-    python:3.13
+ --rm \
+--entrypoint=bash \
+python:3.13
 
 Then we check the version
 
