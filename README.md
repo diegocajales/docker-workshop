@@ -101,5 +101,4 @@ terraform init, terraform apply -auto-approve, terraform destroy
 
 ### Learning in public
 
-> [!NOTE]
-> https://www.linkedin.com/posts/diego-alonso-cajales-albornoz_github-diegocajalesdocker-workshop-activity-7421686347641319424-P30C?utm_source=share&utm_medium=member_desktop&rcm=ACoAABcVuFcBWjLCkqaDiYk8Ieiegt_4omF8LZg
+> [Link to post](https://www.linkedin.com/posts/diego-alonso-cajales-albornoz_github-diegocajalesdocker-workshop-activity-7421686347641319424-P30C?utm_source=share&utm_medium=member_desktop&rcm=ACoAABcVuFcBWjLCkqaDiYk8Ieiegt_4omF8LZg)
