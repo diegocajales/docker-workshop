@@ -1,6 +1,9 @@
 # docker-workshop
 
-## Question 1 - Cheking PIP version
+## Homework 1: Docker, SQL and Terraform
+
+### Question 1 - Cheking PIP version
+
 First we create the image
 
 ```
@@ -18,13 +21,13 @@ pip -V
 pip 25.3 from /usr/local/lib/python3.13/site-packages/pip (python 3.13)
 ```
 
-## Question 2 - hostname and port
+### Question 2 - Hostname and port that pgadmin should use to connect to the postgres database
 
 ```
 db:5432
 ```
 
-## Question 3 - Query
+### Question 3 - Query: For the trips in November 2025, how many trips had a trip_distance of less than or equal to 1 mile
 
 ```sql
 SELECT 
@@ -36,7 +39,7 @@ WHERE
 	gt.trip_distance <= 1;
 ```
 
-## Question 4 - Query
+### Question 4 - Query: Which was the pick up day with the longest trip distance? Only consider trips with trip_distance less than 100 miles
 
 ```sql
 SELECT 
@@ -51,7 +54,7 @@ ORDER BY
 LIMIT 1;
 ```
 
-## Question 5 - Query
+### Question 5 - Query: Which was the pickup zone with the largest total_amount (sum of all trips) on November 18th, 2025?
 
 ```sql
 SELECT 
@@ -70,7 +73,7 @@ ORDER BY
 LIMIT 1;
 ```
 
-## Question 6 - Query
+### Question 6 - Query: For the passengers picked up in the zone named "East Harlem North" in November 2025, which was the drop off zone that had the largest tip?
 
 ```sql
 SELECT 
@@ -90,8 +93,9 @@ ORDER BY
 LIMIT 1;
 ```
 
-## Question 7 - Concepts order
+### Question 7 - Concepts order for: 1) Downloading plugins and setting up backend, 2) Generating and executing changes, 3) Removing all resources?
 
+```
 terraform init, terraform apply -auto-approve, terraform destroy
-
+```
 	
