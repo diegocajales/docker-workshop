@@ -101,9 +101,5 @@ terraform init, terraform apply -auto-approve, terraform destroy
 
 ### Learning in public
 
-<iframe src="[https://www.linkedin.com/embed/feed/update/urn:li:share:6898694772484112384](https://www.linkedin.com/embed/feed/update/urn:li:share:7421686346261610496?collapsed=1)" height="570" width="325" frameborder="0" allowfullscreen="" title="Publicação incorporada"></iframe>
-
-<a href="https://www.linkedin.com/myusername" style="text-decoration: none;color: #92ca55;"><img src="mydirectory/linkedin-icon.jpg" style="display: block;margin: 0;padding-right: 5px;float: left;"></a>
-
-
-<a href="https://www.linkedin.com/embed/feed/update/urn:li:share:7421686346261610496?collapsed=1" height="562" width="504" frameborder="0" allowfullscreen="" title="Publicação incorporada"></a>
+> [!NOTE]
+> https://www.linkedin.com/posts/diego-alonso-cajales-albornoz_github-diegocajalesdocker-workshop-activity-7421686347641319424-P30C?utm_source=share&utm_medium=member_desktop&rcm=ACoAABcVuFcBWjLCkqaDiYk8Ieiegt_4omF8LZg
