@@ -101,4 +101,5 @@ terraform init, terraform apply -auto-approve, terraform destroy
 
 ### Learning in public
 
-<iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7421686346261610496?collapsed=1" height="562" width="504" frameborder="0" allowfullscreen="" title="Publicação incorporada"></iframe>
+<iframe src="[https://www.linkedin.com/embed/feed/update/urn:li:share:6898694772484112384](https://www.linkedin.com/embed/feed/update/urn:li:share:7421686346261610496?collapsed=1)" height="570" width="325" frameborder="0" allowfullscreen="" title="Publicação incorporada"></iframe>
+
