@@ -26,7 +26,7 @@ db:5432
 
 ## Question 3 - Query
 
-```
+```sql
 SELECT 
 	COUNT(1)
 FROM
@@ -38,7 +38,7 @@ WHERE
 
 ## Question 4 - Query
 
-```
+```sql
 SELECT 
 	gt.lpep_pickup_datetime,
 	gt.trip_distance
@@ -53,7 +53,7 @@ LIMIT 1;
 
 ## Question 5 - Query
 
-```
+```sql
 SELECT 
 	tzl."Zone",
 	sum(gt.total_amount)
@@ -72,7 +72,7 @@ LIMIT 1;
 
 ## Question 6 - Query
 
-```
+```sql
 SELECT 
 	tzl_do."Zone",
 	gt.tip_amount 
