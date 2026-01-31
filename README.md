@@ -3,23 +3,30 @@
 ## Question 1 - Cheking PIP version
 First we create the image
 
+```
 docker run -it \               
  --rm \
 --entrypoint=bash \
 python:3.13
+```
 
 Then we check the version
 
+```
 pip -V
 
 pip 25.3 from /usr/local/lib/python3.13/site-packages/pip (python 3.13)
+```
 
 ## Question 2 - hostname and port
 
-<q>db:5432</q>
+```
+db:5432
+```
 
 ## Question 3 - Query
 
+```
 SELECT 
 	COUNT(1)
 FROM
@@ -27,9 +34,11 @@ FROM
 WHERE 
 	(gt.lpep_pickup_datetime >= '2025-11-01' AND gt.lpep_pickup_datetime < '2025-12-01') AND
 	gt.trip_distance <= 1;
+```
 
 ## Question 4 - Query
-	
+
+```
 SELECT 
 	gt.lpep_pickup_datetime,
 	gt.trip_distance
@@ -40,9 +49,11 @@ WHERE
 ORDER BY
 	gt.trip_distance desc
 LIMIT 1;
+```
 
 ## Question 5 - Query
 
+```
 SELECT 
 	tzl."Zone",
 	sum(gt.total_amount)
@@ -57,9 +68,11 @@ GROUP BY
 ORDER BY
 	SUM(gt.total_amount) DESC
 LIMIT 1;
+```
 
 ## Question 6 - Query
 
+```
 SELECT 
 	tzl_do."Zone",
 	gt.tip_amount 
@@ -74,7 +87,8 @@ WHERE
 	tzl_pu."Zone" = "East Harlem North"
 ORDER BY
 	gt.tip_amount DESC
-LIMIT 1
+LIMIT 1;
+```
 
 ## Question 7 - Concepts order
 
